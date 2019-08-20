@@ -1,0 +1,28 @@
+.ArticleList {
+    height: 100%;
+    overflow: auto;
+
+    .card {
+        width: 100%;
+
+        .header {
+
+            .title {
+                width: 50vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 1.25rem;
+                font-family: serif;
+                font-weight: bolder;
+            }
+
+            .info {
+                margin-top: 4px;
+
+                .icon {
+                    margin-right: 0.5em;
+                }
+            }
+        }
+    }
+}

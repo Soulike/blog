@@ -1,0 +1,75 @@
+import React from 'react';
+import Style from './Style.module.scss';
+import {Icon, Layout, Menu} from 'antd';
+import avatar from '../../Static/avatar.png';
+import {Link} from 'react-router-dom';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
+import {Category} from '../../Class';
+import querystring from 'querystring';
+
+const {Sider, Footer, Content} = Layout;
+const {Item, SubMenu} = Menu;
+
+interface Props
+{
+    children?: React.ReactNode,
+    hitokoto: string,
+    year: number,
+    categoryList: Array<Category>,
+}
+
+function FrameView(props: Props)
+{
+    const {children, hitokoto, year, categoryList} = props;
+    return (
+        <Layout className={Style.Frame}>
+            <Sider theme={'light'} className={Style.sidebar}>
+                <div className={Style.sidebarInner}>
+                    <img src={avatar} className={Style.avatar} alt={'avatar'} />
+                    <Menu className={Style.menu} mode={'inline'} selectable={false}>
+                        <Item className={Style.item}>
+                            <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
+                                <Icon type="book" />首页
+                            </Link>
+                        </Item>
+                        <SubMenu title={
+                            <span>
+                                <Icon type="tags" />
+                                分类
+                            </span>
+                        } className={Style.item}>
+                            {
+                                categoryList.map(category =>
+                                {
+                                    const {id, name} = category;
+                                    return (
+                                        <Item key={id}>
+                                            <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
+                                                <Icon type="tag" />
+                                                {name}
+                                            </Link>
+                                        </Item>);
+                                })
+                            }
+                        </SubMenu>
+                        <Item className={Style.item}>
+                            <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
+                                <Icon type="info" />关于
+                            </Link>
+                        </Item>
+                    </Menu>
+                </div>
+            </Sider>
+            <Layout className={Style.main}>
+                <Content className={Style.content}>
+                    {children}
+                </Content>
+                <Footer className={Style.footer}>
+                    <div className={Style.info}>{year} - Designed & Created by Soulike</div>
+                    <div className={Style.hitokoto}>{hitokoto}</div>
+                </Footer>
+            </Layout>
+        </Layout>);
+}
+
+export default React.memo(FrameView);
