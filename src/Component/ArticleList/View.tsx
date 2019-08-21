@@ -1,7 +1,7 @@
 import React from 'react';
 import Style from './Style.module.scss';
 import {Article, Category} from '../../Class';
-import {Card, Icon, List, Tag} from 'antd';
+import {Card, Empty, Icon, List, Tag} from 'antd';
 import {markdownConverter} from '../../Singleton';
 import {CardProps} from 'antd/lib/card';
 
@@ -21,7 +21,9 @@ function ArticleListView(props: Props)
     const ref = React.createRef<HTMLDivElement>();
     return (
         <div className={Style.ArticleList} ref={ref}>
-            <List loading={loading} dataSource={articleList} split={false} pagination={{
+            <List loading={loading} dataSource={articleList} split={false} locale={{
+                emptyText: (<Empty description={'暂无文章'} />),
+            }} pagination={{
                 pageSize: 10,
                 position: 'bottom',
                 hideOnSinglePage: true,
