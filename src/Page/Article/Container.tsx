@@ -44,10 +44,6 @@ class Article extends PureComponent<Props, State>
         {
             idNum = parseInt(id, 10);
         }
-        else if (typeof id === typeof Array)
-        {
-            idNum = parseInt(id[0], 10);
-        }
 
         if (Number.isNaN(idNum))
         {
