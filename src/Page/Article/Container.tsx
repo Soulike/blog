@@ -58,6 +58,8 @@ class Article extends PureComponent<Props, State>
             const article = await getArticleById(idNum);
             if (article !== null)
             {
+                document.title = `${article.title} - Soulike 的博客`;
+
                 this.setState({article});
                 const {category: categoryId} = article;
                 const category = await getCategoryById(categoryId!);
