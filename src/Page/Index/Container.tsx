@@ -24,6 +24,8 @@ class Index extends PureComponent<Props, State>
 
     async componentDidMount()
     {
+        document.title = 'Soulike 的博客';
+
         const articleList = await getAllArticleWithAbstract();
         if (articleList)
         {
