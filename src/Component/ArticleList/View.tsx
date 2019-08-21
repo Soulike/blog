@@ -65,7 +65,7 @@ function ArticleListView(props: Props)
                                           </Tag>
                                       </div>
                                   </div>
-                              } hoverable={true} bordered={false}>
+                              } bordered={false}>
                             {contentWrapper.innerText}……
                         </Card>
                     </Item>
