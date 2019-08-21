@@ -37,7 +37,6 @@ export async function getArticleById(id: number): Promise<Article | null>
             = await axios.get(GET_BY_ID, {
             params: {
                 json: JSON.stringify({id}),
-                _t: Date.now(),
             },
         });
         if (isSuccessful)

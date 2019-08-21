@@ -8,7 +8,7 @@ export async function getAllCategory(): Promise<Array<Category> | null>
     try
     {
         const {data: {isSuccessful, message: msg, data}}: AxiosResponse<Response<Array<Category>>> =
-            await axios.get(GET_ALL, {params: {_t: Date.now()}});
+            await axios.get(GET_ALL);
         if (isSuccessful)
         {
             return data!;
