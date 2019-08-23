@@ -25,8 +25,6 @@ function ArticleView(props: Props)
         category,
         loading,
     } = props;
-    const contentWrapper = document.createElement('div');
-    contentWrapper.innerHTML = markdownConverter.makeHtml(content!);
     const publicationTime = new Date(publicationTimeString!);
     const modificationTime = new Date(modificationTimeString!);
     const nowTime = new Date();
@@ -61,7 +59,7 @@ function ArticleView(props: Props)
                         } />) :
                         null
                 }
-                <ArticleShower HTMLContent={contentWrapper.innerHTML} />
+                <ArticleShower HTMLContent={markdownConverter.makeHtml(content!)} />
             </Skeleton>
         </div>
     );
