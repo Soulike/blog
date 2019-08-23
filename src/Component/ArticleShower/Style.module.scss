@@ -1,4 +1,9 @@
 .ArticleShower {
+    /*覆盖 <article> 中 <h1> 尺寸*/
+    h1 {
+        font-size: 2em;
+    }
+
     pre {
         border-radius: 4px;
         background-clip: border-box;
