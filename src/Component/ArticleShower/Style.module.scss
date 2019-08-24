@@ -12,6 +12,10 @@
         background-clip: border-box;
     }
 
+    img, table {
+        margin: 1em auto;
+    }
+
     img {
         max-width: 100%;
     }
@@ -20,6 +24,18 @@
         overflow: auto;
         max-width: 100%;
         text-align: justify;
+    }
+
+    table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+        word-break: break-word;
+
+        th, td {
+            border: 1px solid #DDD;
+            padding: 1vh 1vw;
+        }
     }
 
     blockquote {
