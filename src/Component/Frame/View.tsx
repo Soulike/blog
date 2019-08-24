@@ -7,7 +7,7 @@ import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
 import {Category} from '../../Class';
 import querystring from 'querystring';
 
-const {Sider, Footer, Content} = Layout;
+const {Sider, Footer, Content, Header} = Layout;
 const {Item, SubMenu} = Menu;
 
 interface Props
@@ -21,8 +21,10 @@ interface Props
 function FrameView(props: Props)
 {
     const {children, hitokoto, year, categoryList} = props;
+
     return (
         <Layout className={Style.Frame}>
+            {/*在宽 500px 以上屏幕显示的 Sider*/}
             <Sider theme={'light'} className={Style.sidebar}>
                 <div className={Style.sidebarInner}>
                     <img src={avatar} className={Style.avatar} alt={'avatar'} />
@@ -34,9 +36,9 @@ function FrameView(props: Props)
                         </Item>
                         <SubMenu title={
                             <span>
-                                <Icon type="tags" />
-                                分类
-                            </span>
+                        <Icon type="tags" />
+                        分类
+                    </span>
                         } className={Style.item}>
                             {
                                 categoryList.map(category =>
@@ -60,7 +62,46 @@ function FrameView(props: Props)
                     </Menu>
                 </div>
             </Sider>
+
             <Layout className={Style.main}>
+                {/*在宽 500 px 以下屏幕显示的 Header*/}
+                <Header className={Style.header}>
+                    <div className={Style.headerInner}>
+                        <img src={avatar} className={Style.avatar} alt={'avatar'} />
+                        <Menu className={Style.menu} mode={'horizontal'} selectable={false} theme={'dark'}>
+                            <Item className={Style.item}>
+                                <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
+                                    <Icon type="book" />首页
+                                </Link>
+                            </Item>
+                            <SubMenu title={
+                                <span>
+                                    <Icon type="tags" />
+                                    分类
+                                </span>
+                            } className={Style.item}>
+                                {
+                                    categoryList.map(category =>
+                                    {
+                                        const {id, name} = category;
+                                        return (
+                                            <Item key={id}>
+                                                <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
+                                                    <Icon type="tag" />
+                                                    {name}
+                                                </Link>
+                                            </Item>);
+                                    })
+                                }
+                            </SubMenu>
+                            <Item className={Style.item}>
+                                <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
+                                    <Icon type="info" />关于
+                                </Link>
+                            </Item>
+                        </Menu>
+                    </div>
+                </Header>
                 <Content className={Style.content}>
                     {children}
                 </Content>
