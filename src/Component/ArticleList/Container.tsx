@@ -2,10 +2,7 @@ import React, {PureComponent} from 'react';
 import View from './View';
 import {Article, Category} from '../../Class';
 import {getAllCategory} from '../../Api/Category';
-import {CardProps} from 'antd/lib/card';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
-import qs from 'querystring';
 
 interface Props extends RouteComponentProps
 {
@@ -44,15 +41,6 @@ class ArticleList extends PureComponent<Props, State>
         this.setState({categoryMap, loading: false});
     }
 
-    onArticleClick: (id: number) => CardProps['onClick'] = id =>
-    {
-        return () =>
-        {
-            this.props.history.push(`${PAGE_ID_TO_ROUTE[PAGE_ID.ARTICLE]}?${qs.encode({id})}`);
-        };
-    };
-
-
     render()
     {
         const {articleList} = this.props;
@@ -60,8 +48,7 @@ class ArticleList extends PureComponent<Props, State>
         return (
             <View articleList={articleList}
                   categoryMap={categoryMap}
-                  loading={this.props.loading || this.state.loading}
-                  onArticleClick={this.onArticleClick} />
+                  loading={this.props.loading || this.state.loading} />
         );
     }
 }
