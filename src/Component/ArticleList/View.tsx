@@ -42,6 +42,7 @@ function ArticleListView(props: Props)
                 const {id, title, content, category: categoryId, publicationTime, pageViews} = article;
                 const contentWrapper = document.createElement('div');
                 contentWrapper.innerHTML = markdownConverter.makeHtml(content!);
+                const text = contentWrapper.getElementsByTagName('p')[0].innerText;
                 const time = new Date(publicationTime!);
                 const category = categoryMap.get(categoryId!);
                 return (
@@ -72,7 +73,7 @@ function ArticleListView(props: Props)
                                           </div>
                                       </div>
                                   } bordered={false}>
-                                {contentWrapper.innerText}……
+                                {text}……
                             </Card>
                         </Link>
                     </Item>
