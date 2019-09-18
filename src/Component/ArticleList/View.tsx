@@ -3,9 +3,7 @@ import Style from './Style.module.scss';
 import {Article, Category} from '../../Class';
 import {Card, Empty, Icon, List, Tag} from 'antd';
 import {markdownConverter} from '../../Singleton';
-import {Link} from 'react-router-dom';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
-import qs from 'querystring';
+import ArticleLink from './Component/ArticleLink';
 
 const {Item} = List;
 
@@ -45,41 +43,42 @@ function ArticleListView(props: Props)
                 const text = contentWrapper.getElementsByTagName('p')[0].innerText;
                 const time = new Date(publicationTime!);
                 const category = categoryMap.get(categoryId!);
+
                 return (
                     <Item key={id}>
-                        <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.ARTICLE]}?${qs.encode({id})}`}
-                              target={'_blank'}
-                              rel="noopener norefferrer">
-                            <Card className={Style.card}
-                                  title={
-                                      <div className={Style.header}>
+                        <Card className={Style.card}
+                              title={
+                                  <div className={Style.header}>
+                                      <ArticleLink articleId={id!}>
                                           <header className={Style.title}>{title}</header>
-                                          <div className={Style.info}>
-                                              <Tag color={'purple'}>
-                                                  <Icon type="clock-circle" className={Style.icon} />
-                                                  <span>
+                                      </ArticleLink>
+                                      <div className={Style.info}>
+                                          <Tag color={'purple'}>
+                                              <Icon type="clock-circle" className={Style.icon} />
+                                              <span>
                                             {`${time.getFullYear()}-${(time.getMonth() + 1).toString().padStart(2, '0')}-${time.getDate().toString().padStart(2, '0')}`}
 
                                         </span>
-                                              </Tag>
-                                              <Tag color={'blue'}>
-                                                  <Icon type={'tag'} className={Style.icon} />
-                                                  <span>{category ? category.name : ''}</span>
-                                              </Tag>
-                                              <Tag color={'geekblue'}>
-                                                  <Icon type="eye" className={Style.icon} />
-                                                  <span>{pageViews}</span>
-                                              </Tag>
-                                          </div>
+                                          </Tag>
+                                          <Tag color={'blue'}>
+                                              <Icon type={'tag'} className={Style.icon} />
+                                              <span>{category ? category.name : ''}</span>
+                                          </Tag>
+                                          <Tag color={'geekblue'}>
+                                              <Icon type="eye" className={Style.icon} />
+                                              <span>{pageViews}</span>
+                                          </Tag>
                                       </div>
-                                  } bordered={false}>
+                                  </div>
+                              } bordered={false}>
+                            <div className={Style.brief}>
                                 {text}……
-                            </Card>
-                        </Link>
+                            </div>
+                            <ArticleLink articleId={id!}>继续阅读 >></ArticleLink>
+                        </Card>
                     </Item>
                 );
             }}>
-
             </List>
         </div>
     );
