@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://39.96.200.130:8002",
+  "proxy": "https://test.soulike.tech:8002",
   "dependencies": {
     "@types/faker": "^4.1.5",
     "@types/highlight.js": "^9.12.3",
