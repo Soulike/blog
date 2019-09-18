@@ -2,8 +2,6 @@ import 'core-js';
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import {Provider} from 'react-redux';
-import Store from './Store';
 import * as serviceWorker from './serviceWorker';
 import Loading from './Component/Loading';
 import './ModuleConfig/Antd';
@@ -14,11 +12,9 @@ const Router = React.lazy(() => import('./Router'));
 
 ReactDOM.render(
     <Suspense fallback={<Loading />}>
-        <Provider store={Store}>
-            <ConfigProvider locale={zhCN}>
-                <Router />
-            </ConfigProvider>
-        </Provider>
+        <ConfigProvider locale={zhCN}>
+            <Router />
+        </ConfigProvider>
     </Suspense>,
     document.getElementById('root'));
 
