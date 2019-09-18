@@ -8,9 +8,7 @@ export async function getAllArticleWithAbstract(): Promise<Array<Article> | null
     try
     {
         const {data: {isSuccessful, message: msg, data}}: AxiosResponse<Response<Array<Article>>>
-            = await axios.get(GET_ALL_WITH_ABSTRACT, {
-            params: {_t: Date.now()},
-        });
+            = await axios.get(GET_ALL_WITH_ABSTRACT);
         if (isSuccessful)
         {
             return data!;
@@ -65,7 +63,6 @@ export async function getArticleByCategoryWithAbstract(category: number): Promis
             = await axios.get(GET_BY_CATEGORY_WITH_ABSTRACT, {
             params: {
                 json: JSON.stringify({category}),
-                _t: Date.now(),
             },
         });
         if (isSuccessful)
