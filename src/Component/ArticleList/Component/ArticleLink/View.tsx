@@ -12,7 +12,7 @@ function ArticleLink(props: Props)
 {
     const {children, articleId, ...rest} = props;
     return (
-        <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.ARTICLE]}?${qs.encode({articleId})}`}
+        <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.ARTICLE]}?${qs.encode({id: articleId})}`}
               target={'_blank'}
               rel="noopener norefferrer" {...rest}>
             {children}
