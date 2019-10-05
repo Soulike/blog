@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import View from './View';
 import {Article, Category} from '../../Class';
-import {getAllCategory} from '../../Api/Category';
+import {Category as CategoryApi} from '../../Api';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 interface Props extends RouteComponentProps
@@ -29,13 +29,13 @@ class ArticleList extends PureComponent<Props, State>
 
     async componentDidMount()
     {
-        const categoryList = await getAllCategory();
+        const categoryList = await CategoryApi.getAll();
         const categoryMap = new Map<number, Category>();
         if (categoryList !== null)
         {
             categoryList.forEach(category =>
             {
-                categoryMap.set(category.id!, category);
+                categoryMap.set(category.id, category);
             });
         }
         this.setState({categoryMap, loading: false});

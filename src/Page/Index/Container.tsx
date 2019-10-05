@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import View from './View';
 import {Article} from '../../Class';
-import {getAllArticleWithAbstract} from '../../Api/Article';
+import {Article as ArticleApi} from '../../Api';
 
 interface Props {}
 
@@ -26,7 +26,7 @@ class Index extends PureComponent<Props, State>
     {
         document.title = 'Soulike 的博客';
 
-        const articleList = await getAllArticleWithAbstract();
+        const articleList = await ArticleApi.getAllWithAbstract();
         if (articleList)
         {
             this.setState({articleList, loading: false});

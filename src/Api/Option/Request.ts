@@ -3,7 +3,7 @@ import {GET_ABOUT} from './ROUTE';
 import {Response} from '../../Class';
 import {message} from 'antd';
 
-export async function getAbout(): Promise<{ about: string } | null>
+export async function get(): Promise<{ about: string } | null>
 {
     try
     {

@@ -3,7 +3,7 @@ import {Article, Response} from '../../Class';
 import {GET_ALL_WITH_ABSTRACT, GET_BY_CATEGORY_WITH_ABSTRACT, GET_BY_ID} from './ROUTE';
 import {message} from 'antd';
 
-export async function getAllArticleWithAbstract(): Promise<Array<Article> | null>
+export async function getAllWithAbstract(): Promise<Array<Article> | null>
 {
     try
     {
@@ -27,7 +27,7 @@ export async function getAllArticleWithAbstract(): Promise<Array<Article> | null
     }
 }
 
-export async function getArticleById(id: number): Promise<Article | null>
+export async function getById(id: number): Promise<Article | null>
 {
     try
     {
@@ -55,7 +55,7 @@ export async function getArticleById(id: number): Promise<Article | null>
     }
 }
 
-export async function getArticleByCategoryWithAbstract(category: number): Promise<Array<Article> | null>
+export async function getByCategoryWithAbstract(category: number): Promise<Array<Article> | null>
 {
     try
     {

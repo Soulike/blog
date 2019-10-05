@@ -39,17 +39,17 @@ function ArticleListView(props: Props)
             {
                 const {id, title, content, category: categoryId, publicationTime, pageViews} = article;
                 const contentWrapper = document.createElement('div');
-                contentWrapper.innerHTML = markdownConverter.makeHtml(content!);
+                contentWrapper.innerHTML = markdownConverter.makeHtml(content);
                 const text = contentWrapper.getElementsByTagName('p')[0].innerText;
-                const time = new Date(publicationTime!);
-                const category = categoryMap.get(categoryId!);
+                const time = new Date(publicationTime);
+                const category = categoryMap.get(categoryId);
 
                 return (
                     <Item key={id}>
                         <Card className={Style.card}
                               title={
                                   <div className={Style.header}>
-                                      <ArticleLink articleId={id!}>
+                                      <ArticleLink articleId={id}>
                                           <header className={Style.title}>{title}</header>
                                       </ArticleLink>
                                       <div className={Style.info}>
@@ -74,7 +74,7 @@ function ArticleListView(props: Props)
                             <div className={Style.brief}>
                                 {text}……
                             </div>
-                            <ArticleLink articleId={id!}>继续阅读 >></ArticleLink>
+                            <ArticleLink articleId={id}>继续阅读 >></ArticleLink>
                         </Card>
                     </Item>
                 );

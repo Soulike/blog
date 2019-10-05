@@ -25,8 +25,8 @@ function ArticleView(props: Props)
         category,
         loading,
     } = props;
-    const publicationTime = new Date(publicationTimeString!);
-    const modificationTime = new Date(modificationTimeString!);
+    const publicationTime = new Date(publicationTimeString);
+    const modificationTime = new Date(modificationTimeString);
     const nowTime = new Date();
     const timeDiff = nowTime.getTime() - modificationTime.getTime();
     const ONE_MONTH = 30 * 24 * 60 * 60 * 1000; // 一个月，单位毫秒
@@ -59,7 +59,7 @@ function ArticleView(props: Props)
                         } />) :
                         null
                 }
-                <ArticleShower HTMLContent={markdownConverter.makeHtml(content!)} />
+                <ArticleShower HTMLContent={markdownConverter.makeHtml(content)} />
             </Skeleton>
         </div>
     );
