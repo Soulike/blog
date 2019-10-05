@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import View from './View';
 import axios from 'axios';
 import {Category} from '../../Class';
-import {getAllCategory} from '../../Api/Category';
+import {Category as CategoryApi} from '../../Api';
 
 interface Props
 {
@@ -48,7 +48,7 @@ class Frame extends PureComponent<Props, State>
         });
 
         // 获取所有分类
-        const categoryList = await getAllCategory();
+        const categoryList = await CategoryApi.getAll();
         if (categoryList !== null)
         {
             this.setState({categoryList});

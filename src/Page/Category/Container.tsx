@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import View from './View';
 import {Article} from '../../Class';
-import {getArticleByCategoryWithAbstract} from '../../Api/Article';
+import {Article as ArticleApi} from '../../Api';
 import qs from 'querystring';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
@@ -44,7 +44,7 @@ class Category extends PureComponent<Props, State>
             return;
         }
 
-        const articleList = await getArticleByCategoryWithAbstract(id);
+        const articleList = await ArticleApi.getByCategoryWithAbstract(id);
         if (articleList)
         {
             this.setState({articleList, loading: false});

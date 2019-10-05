@@ -1,17 +1,16 @@
 import React, {PureComponent} from 'react';
 import View from './View';
-import {Article as ArticleObj, Category} from '../../Class';
+import {Article as ArticleClass, Category} from '../../Class';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import qs from 'querystring';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
-import {getArticleById} from '../../Api/Article';
-import {getCategoryById} from '../../Api/Category';
+import {Article as ArticleApi, Category as CategoryApi} from '../../Api';
 
 interface Props extends RouteComponentProps {}
 
 interface State
 {
-    article: ArticleObj,
+    article: ArticleClass,
     category: Category,
     loading: boolean,
 }
@@ -22,8 +21,8 @@ class Article extends PureComponent<Props, State>
     {
         super(props);
         this.state = {
-            article: new ArticleObj(),
-            category: new Category(),
+            article: new ArticleClass(0, '', '', 0, '', '', 0, true),
+            category: new Category(0, ''),
             loading: true,
         };
     }
@@ -51,14 +50,14 @@ class Article extends PureComponent<Props, State>
         }
         else
         {
-            const article = await getArticleById(idNum);
+            const article = await ArticleApi.getById(idNum);
             if (article !== null)
             {
                 document.title = `${article.title} - Soulike 的博客`;
 
                 this.setState({article});
                 const {category: categoryId} = article;
-                const category = await getCategoryById(categoryId!);
+                const category = await CategoryApi.getById(categoryId);
                 if (category !== null)
                 {
                     this.setState({category});
@@ -78,10 +77,10 @@ class Article extends PureComponent<Props, State>
             loading,
         } = this.state;
         return (
-            <View title={title!}
-                  content={content!}
-                  publicationTime={publicationTime!}
-                  modificationTime={modificationTime!}
+            <View title={title}
+                  content={content}
+                  publicationTime={publicationTime}
+                  modificationTime={modificationTime}
                   loading={loading}
                   category={category} />
         );

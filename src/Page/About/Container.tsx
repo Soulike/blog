@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import View from './View';
-import {getAbout} from '../../Api/Option';
+import {Option} from '../../Api';
 
 interface Props {}
 
@@ -23,7 +23,7 @@ class About extends PureComponent<Props, State>
 
     async componentDidMount()
     {
-        const result = await getAbout();
+        const result = await Option.get();
         if (result !== null)
         {
             this.setState({

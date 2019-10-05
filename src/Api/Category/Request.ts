@@ -3,7 +3,7 @@ import axios, {AxiosResponse} from 'axios';
 import {GET_ALL, GET_BY_ID} from './ROUTE';
 import {message} from 'antd';
 
-export async function getAllCategory(): Promise<Array<Category> | null>
+export async function getAll(): Promise<Array<Category> | null>
 {
     try
     {
@@ -27,7 +27,7 @@ export async function getAllCategory(): Promise<Array<Category> | null>
     }
 }
 
-export async function getCategoryById(id: number): Promise<Category | null>
+export async function getById(id: number): Promise<Category | null>
 {
     try
     {
