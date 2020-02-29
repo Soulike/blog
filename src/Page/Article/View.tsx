@@ -2,8 +2,9 @@ import React from 'react';
 import Style from './Style.module.scss';
 import ArticleShower from '../../Component/ArticleShower';
 import {Category} from '../../Class';
-import {Alert, Icon, Skeleton, Tag} from 'antd';
+import {Alert, Skeleton, Tag} from 'antd';
 import {markdownConverter} from '../../Singleton';
+import {ClockCircleOutlined, TagOutlined} from '@ant-design/icons';
 
 interface Props
 {
@@ -40,14 +41,14 @@ function ArticleView(props: Props)
                     <h1 className={Style.title}>{title}</h1>
                     <div className={Style.info}>
                         <Tag color={'purple'}>
-                            <Icon type="clock-circle" className={Style.icon} />
+                            <ClockCircleOutlined className={Style.icon} />
                             <span>
                                             {`${publicationTime.getFullYear()}-${(publicationTime.getMonth() + 1).toString().padStart(2, '0')}-${publicationTime.getDate().toString().padStart(2, '0')}`}
 
                                         </span>
                         </Tag>
                         <Tag color={'blue'}>
-                            <Icon type={'tag'} className={Style.icon} />
+                            <TagOutlined className={Style.icon} />
                             <span>{category ? category.name : ''}</span>
                         </Tag>
                     </div>
