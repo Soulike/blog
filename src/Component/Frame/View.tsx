@@ -1,11 +1,12 @@
 import React from 'react';
 import Style from './Style.module.scss';
-import {Icon, Layout, Menu} from 'antd';
+import {Layout, Menu} from 'antd';
 import avatar from '../../Static/avatar.png';
 import {Link} from 'react-router-dom';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
 import {Category} from '../../Class';
 import querystring from 'querystring';
+import {HomeOutlined, InfoOutlined, TagOutlined, TagsOutlined} from '@ant-design/icons';
 
 const {Sider, Footer, Content, Header} = Layout;
 const {Item, SubMenu} = Menu;
@@ -31,12 +32,12 @@ function FrameView(props: Props)
                     <Menu className={Style.menu} mode={'inline'} selectable={false}>
                         <Item className={Style.item}>
                             <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                <Icon type="book" />首页
+                                <HomeOutlined />首页
                             </Link>
                         </Item>
                         <SubMenu title={
                             <span>
-                        <Icon type="tags" />
+                        <TagsOutlined />
                         分类
                     </span>
                         } className={Style.item}>
@@ -47,7 +48,7 @@ function FrameView(props: Props)
                                     return (
                                         <Item key={id}>
                                             <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                <Icon type="tag" />
+                                                <TagOutlined />
                                                 {name}
                                             </Link>
                                         </Item>);
@@ -56,7 +57,7 @@ function FrameView(props: Props)
                         </SubMenu>
                         <Item className={Style.item}>
                             <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                <Icon type="info" />关于
+                                <InfoOutlined />关于
                             </Link>
                         </Item>
                     </Menu>
@@ -71,12 +72,12 @@ function FrameView(props: Props)
                         <Menu className={Style.menu} mode={'horizontal'} selectable={false} theme={'dark'}>
                             <Item className={Style.item}>
                                 <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                    <Icon type="book" />首页
+                                    <HomeOutlined />首页
                                 </Link>
                             </Item>
                             <SubMenu title={
                                 <span>
-                                    <Icon type="tags" />
+                                    <TagsOutlined />
                                     分类
                                 </span>
                             } className={Style.item}>
@@ -87,7 +88,7 @@ function FrameView(props: Props)
                                         return (
                                             <Item key={id}>
                                                 <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                    <Icon type="tag" />
+                                                    <TagOutlined />
                                                     {name}
                                                 </Link>
                                             </Item>);
@@ -96,7 +97,7 @@ function FrameView(props: Props)
                             </SubMenu>
                             <Item className={Style.item}>
                                 <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                    <Icon type="info" />关于
+                                    <InfoOutlined />关于
                                 </Link>
                             </Item>
                         </Menu>

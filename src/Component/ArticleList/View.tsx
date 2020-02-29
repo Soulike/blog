@@ -1,9 +1,10 @@
 import React from 'react';
 import Style from './Style.module.scss';
 import {Article, Category} from '../../Class';
-import {Card, Empty, Icon, List, Tag} from 'antd';
+import {Card, Empty, List, Tag} from 'antd';
 import {markdownConverter} from '../../Singleton';
 import ArticleLink from './Component/ArticleLink';
+import {ClockCircleOutlined, EyeOutlined, TagsOutlined} from '@ant-design/icons';
 
 const {Item} = List;
 
@@ -54,18 +55,18 @@ function ArticleListView(props: Props)
                                       </ArticleLink>
                                       <div className={Style.info}>
                                           <Tag color={'purple'}>
-                                              <Icon type="clock-circle" className={Style.icon} />
+                                              <ClockCircleOutlined className={Style.icon} />
                                               <span>
                                             {`${time.getFullYear()}-${(time.getMonth() + 1).toString().padStart(2, '0')}-${time.getDate().toString().padStart(2, '0')}`}
 
                                         </span>
                                           </Tag>
                                           <Tag color={'blue'}>
-                                              <Icon type={'tag'} className={Style.icon} />
+                                              <TagsOutlined className={Style.icon} />
                                               <span>{category ? category.name : ''}</span>
                                           </Tag>
                                           <Tag color={'geekblue'}>
-                                              <Icon type="eye" className={Style.icon} />
+                                              <EyeOutlined className={Style.icon} />
                                               <span>{pageViews}</span>
                                           </Tag>
                                       </div>
