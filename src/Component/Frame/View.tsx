@@ -32,12 +32,12 @@ function FrameView(props: Props)
                     <Menu className={Style.menu} mode={'inline'} selectable={false}>
                         <Item className={Style.item}>
                             <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                <HomeOutlined />首页
+                                <HomeOutlined className={Style.icon} />首页
                             </Link>
                         </Item>
                         <SubMenu title={
                             <span>
-                        <TagsOutlined />
+                        <TagsOutlined className={Style.icon} />
                         分类
                     </span>
                         } className={Style.item}>
@@ -48,7 +48,7 @@ function FrameView(props: Props)
                                     return (
                                         <Item key={id}>
                                             <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                <TagOutlined />
+                                                <TagOutlined className={Style.icon} />
                                                 {name}
                                             </Link>
                                         </Item>);
@@ -57,7 +57,7 @@ function FrameView(props: Props)
                         </SubMenu>
                         <Item className={Style.item}>
                             <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                <InfoOutlined />关于
+                                <InfoOutlined className={Style.icon} />关于
                             </Link>
                         </Item>
                     </Menu>
@@ -72,12 +72,12 @@ function FrameView(props: Props)
                         <Menu className={Style.menu} mode={'horizontal'} selectable={false} theme={'dark'}>
                             <Item className={Style.item}>
                                 <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                    <HomeOutlined />首页
+                                    <HomeOutlined className={Style.icon} />首页
                                 </Link>
                             </Item>
                             <SubMenu title={
                                 <span>
-                                    <TagsOutlined />
+                                    <TagsOutlined className={Style.icon} />
                                     分类
                                 </span>
                             } className={Style.item}>
@@ -88,7 +88,7 @@ function FrameView(props: Props)
                                         return (
                                             <Item key={id}>
                                                 <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                    <TagOutlined />
+                                                    <TagOutlined className={Style.icon} />
                                                     {name}
                                                 </Link>
                                             </Item>);
@@ -97,7 +97,7 @@ function FrameView(props: Props)
                             </SubMenu>
                             <Item className={Style.item}>
                                 <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                    <InfoOutlined />关于
+                                    <InfoOutlined className={Style.icon} />关于
                                 </Link>
                             </Item>
                         </Menu>
