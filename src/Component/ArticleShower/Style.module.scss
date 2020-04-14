@@ -1,4 +1,5 @@
 .ArticleShower {
+    @import "../../GlobalStyle/COLOR.css";
 
     /*覆盖 <article> 中 <h1> 尺寸*/
     h1 {
@@ -40,8 +41,8 @@
 
     blockquote {
         border-left: 10px solid #6CF;
-        border-top: 1px solid #DDD;
-        border-bottom: 1px solid #DDD;
+        border-top: 1px solid var(--BORDER_COLOR);
+        border-bottom: 1px solid var(--BORDER_COLOR);
         padding: 2em;
 
         p {
