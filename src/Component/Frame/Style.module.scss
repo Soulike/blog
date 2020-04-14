@@ -1,4 +1,6 @@
 .Frame {
+    @import "../../GlobalStyle/COLOR.css";
+
     height: 100vh;
     width: 100vw;
 
@@ -49,8 +51,12 @@
         flex-basis: auto !important;
         max-width: 17vw !important;
         min-width: 17vw !important;
+        background-color: var(--BACKGROUND_COLOR);
+        border-right: 1px solid var(--BORDER_COLOR);
 
-        border-right: 1px solid #EEE;
+        * {
+            background-color: inherit;
+        }
 
         @media (max-width: 1000px) {
             width: 125px !important;
@@ -97,7 +103,7 @@
     .main {
         width: (100vw - 20vw) !important;
         overflow-x: hidden;
-        background-color: #FFF;
+        background-color: var(--BACKGROUND_COLOR) !important;
 
         .content {
             overflow: auto;

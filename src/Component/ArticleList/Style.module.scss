@@ -1,4 +1,6 @@
 .ArticleList {
+    @import "../../GlobalStyle/COLOR.css";
+
     height: 100%;
     overflow: auto;
 
@@ -14,7 +16,7 @@
                 font-size: 1.5rem;
                 font-family: sans-serif;
                 font-weight: lighter;
-                color: #000;
+                color: var(--COLOR);
 
                 @media (max-width: 500px) {
                     width: 80vw;
@@ -33,8 +35,8 @@
 
         .brief {
             font-size: 1rem;
-            opacity: 0.75;
             margin-bottom: 1rem;
+            color: var(--LIGHT_COLOR);
         }
     }
 }

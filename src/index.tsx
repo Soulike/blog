@@ -1,12 +1,12 @@
 import 'core-js';
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import Loading from './Component/Loading';
 import './ModuleConfig/Antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import {ConfigProvider} from 'antd';
+import './GlobalStyle';
 
 const Router = React.lazy(() => import('./Router'));
 
