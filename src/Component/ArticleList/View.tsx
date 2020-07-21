@@ -75,7 +75,7 @@ function ArticleListView(props: Props)
                             <div className={Style.brief}>
                                 {text}……
                             </div>
-                            <ArticleLink articleId={id}>继续阅读 >></ArticleLink>
+                            <ArticleLink articleId={id}>继续阅读 {'>'}</ArticleLink>
                         </Card>
                     </Item>
                 );
