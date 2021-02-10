@@ -1,56 +1,51 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article, Category} from '../../Class';
 import {Category as CategoryApi} from '../../Api';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
 
-interface Props extends RouteComponentProps
+interface IProps
 {
     articleList: Array<Article>,
     loading: boolean,
 }
 
-interface State
+function ArticleList(props: IProps)
 {
-    categoryMap: Map<number, Category>,
-    loading: boolean,
-}
+    const [categoryMap, setCategoryMap] = useState(new Map<number, Category>());
+    const [selfLoading, setSelfLoading] = useState(false);
 
-class ArticleList extends PureComponent<Props, State>
-{
-    constructor(props: Props)
-    {
-        super(props);
-        this.state = {
-            categoryMap: new Map<number, Category>(),
-            loading: true,
-        };
-    }
+    const {articleList, loading} = props;
 
-    async componentDidMount()
+    useEffect(() =>
     {
-        const categoryList = await CategoryApi.getAll();
-        const categoryMap = new Map<number, Category>();
-        if (categoryList !== null)
+        const getCategoryMap = async () =>
         {
-            categoryList.forEach(category =>
+            const categoryList = await CategoryApi.getAll();
+            const categoryMap = new Map<number, Category>();
+            if (categoryList !== null)
             {
-                categoryMap.set(category.id, category);
-            });
-        }
-        this.setState({categoryMap, loading: false});
-    }
+                categoryList.forEach(category =>
+                {
+                    categoryMap.set(category.id, category);
+                });
+            }
+            return categoryMap;
+        };
 
-    render()
-    {
-        const {articleList} = this.props;
-        const {categoryMap} = this.state;
-        return (
-            <View articleList={articleList}
-                  categoryMap={categoryMap}
-                  loading={this.props.loading || this.state.loading} />
-        );
-    }
+        setSelfLoading(true);
+        getCategoryMap()
+            .then(categoryMap =>
+            {
+                setCategoryMap(categoryMap);
+                setSelfLoading(false);
+            });
+    }, []);
+
+    return (
+        <View articleList={articleList}
+              categoryMap={categoryMap}
+              loading={loading || selfLoading} />
+    );
 }
 
-export default withRouter(ArticleList);
+export default React.memo(ArticleList);
