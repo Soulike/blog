@@ -1,70 +1,68 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import axios from 'axios';
 import {Category} from '../../Class';
 import {Category as CategoryApi} from '../../Api';
 
-interface Props
+interface IProps
 {
     children?: React.ReactNode,
 }
 
-interface State
+function Frame(props: IProps)
 {
-    hitokoto: string,
-    year: number,
-    categoryList: Array<Category>
-}
+    const [hitokoto, setHitokoto] = useState('这里应该有一句话');
+    const [year, setYear] = useState(1970);
+    const [categoryList, setCategoryList] = useState([] as Category[]);
 
-class Frame extends PureComponent<Props, State>
-{
-    constructor(props: Props)
+    // 设定当前年份
+    useEffect(() =>
     {
-        super(props);
-        this.state = {
-            hitokoto: '这里应该有一句话',
-            year: 0,
-            categoryList: [],
-        };
-    }
-
-    async componentDidMount()
-    {
-        // 设定当前年份
         const date = new Date();
-        this.setState({year: date.getFullYear()});
+        setYear(date.getFullYear());
+    }, []);
 
-        // 设定 hitokoto
-        const {data} = await axios.get('https://v1.hitokoto.cn/', {
-            params: {
-                c: 'a',
-                encode: 'text',
-                _t: Date.now(),
-            },
-        });
-
-        this.setState({
-            hitokoto: data,
-        });
-
-        // 获取所有分类
-        const categoryList = await CategoryApi.getAll();
-        if (categoryList !== null)
-        {
-            this.setState({categoryList});
-        }
-    }
-
-    render()
+    // 设定 hitokoto
+    useEffect(() =>
     {
-        const {children} = this.props;
-        const {hitokoto, year, categoryList} = this.state;
-        return (
-            <View hitokoto={hitokoto} year={year} categoryList={categoryList}>
-                {children}
-            </View>
-        );
-    }
+        const getHitokoto = async () =>
+        {
+            const {data} = await axios.get('https://v1.hitokoto.cn/', {
+                params: {
+                    c: 'a',
+                    encode: 'text',
+                    _t: Date.now(),
+                },
+            });
+
+            return data;
+        };
+
+        getHitokoto()
+            .then(hitokoto => setHitokoto(hitokoto));
+    }, []);
+
+    // 获取所有分类
+    useEffect(() =>
+    {
+        const getCategoryList = async () => await CategoryApi.getAll();
+
+        getCategoryList()
+            .then(categoryList =>
+            {
+                if (categoryList !== null)
+                {
+                    setCategoryList(categoryList);
+                }
+            });
+    }, []);
+
+    const {children} = props;
+    return (
+        <View hitokoto={hitokoto} year={year} categoryList={categoryList}>
+            {children}
+        </View>
+    );
 }
 
-export default Frame;
+export default React.memo(Frame);

@@ -3,7 +3,7 @@ import Style from './Style.module.scss';
 import {Layout, Menu} from 'antd';
 import avatar from '../../Static/avatar.png';
 import {Link} from 'react-router-dom';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
 import {Category} from '../../Class';
 import querystring from 'querystring';
 import {HomeOutlined, InfoOutlined, TagOutlined, TagsOutlined} from '@ant-design/icons';
