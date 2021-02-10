@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, LinkProps} from 'react-router-dom';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../../../CONFIG/PAGE';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../../../../../CONFIG';
 import qs from 'querystring';
 
 interface Props extends Partial<LinkProps>
