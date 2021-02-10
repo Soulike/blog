@@ -1,44 +1,30 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Option} from '../../Api';
 
-interface Props {}
-
-interface State
+function About()
 {
-    about: string,
-    loading: boolean,
-}
+    const [about, setAbout] = useState('');
+    const [loading, setLoading] = useState(false);
 
-class About extends PureComponent<Props, State>
-{
-    constructor(props: Props)
+    useEffect(() =>
     {
-        super(props);
-        this.state = {
-            about: '',
-            loading: true,
-        };
-    }
-
-    async componentDidMount()
-    {
-        const result = await Option.get();
-        if (result !== null)
+        const getAbout = async () =>
         {
-            this.setState({
-                about: result.about,
-                loading: false,
+            const result = await Option.get();
+            return result === null ? '' : result.about;
+        };
+
+        setLoading(true);
+        getAbout()
+            .then(about =>
+            {
+                setAbout(about);
+                setLoading(false);
             });
-        }
-    }
+    }, []);
 
-
-    render()
-    {
-        const {about, loading} = this.state;
-        return <View about={about} loading={loading} />;
-    }
+    return <View about={about} loading={loading} />;
 }
 
-export default About;
+export default React.memo(About);
