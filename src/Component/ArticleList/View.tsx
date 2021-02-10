@@ -1,10 +1,9 @@
 import React from 'react';
 import Style from './Style.module.scss';
 import {Article, Category} from '../../Class';
-import {Card, Empty, List, Tag} from 'antd';
-import {markdownConverter} from '../../Singleton';
-import ArticleLink from './Component/ArticleLink';
-import {ClockCircleOutlined, EyeOutlined, TagsOutlined} from '@ant-design/icons';
+import {Empty, List} from 'antd';
+import ArticlePreviewCard from './Component/ArticlePreviewCard';
+import {getFirstSentenceFromMarkdown} from './Function';
 
 const {Item} = List;
 
@@ -39,44 +38,18 @@ function ArticleListView(props: Props)
             }} renderItem={article =>
             {
                 const {id, title, content, category: categoryId, publicationTime, pageViews} = article;
-                const contentWrapper = document.createElement('div');
-                contentWrapper.innerHTML = markdownConverter.makeHtml(content);
-                const text = contentWrapper.getElementsByTagName('p')[0].innerText;
+                const text = getFirstSentenceFromMarkdown(content);
                 const time = new Date(publicationTime);
                 const category = categoryMap.get(categoryId);
 
                 return (
                     <Item key={id}>
-                        <Card className={Style.card}
-                              title={
-                                  <div className={Style.header}>
-                                      <ArticleLink articleId={id}>
-                                          <header className={Style.title}>{title}</header>
-                                      </ArticleLink>
-                                      <div className={Style.info}>
-                                          <Tag color={'purple'}>
-                                              <ClockCircleOutlined className={Style.icon} />
-                                              <span>
-                                            {`${time.getFullYear()}-${(time.getMonth() + 1).toString().padStart(2, '0')}-${time.getDate().toString().padStart(2, '0')}`}
-
-                                        </span>
-                                          </Tag>
-                                          <Tag color={'blue'}>
-                                              <TagsOutlined className={Style.icon} />
-                                              <span>{category ? category.name : ''}</span>
-                                          </Tag>
-                                          <Tag color={'geekblue'}>
-                                              <EyeOutlined className={Style.icon} />
-                                              <span>{pageViews}</span>
-                                          </Tag>
-                                      </div>
-                                  </div>
-                              } bordered={false}>
-                            <div className={Style.brief}>
-                                {text}……
-                            </div>
-                            <ArticleLink articleId={id}>继续阅读 {'>'}</ArticleLink>
-                        </Card>
+                        <ArticlePreviewCard articleId={id}
+                                            articleTitle={title}
+                                            articleTime={time}
+                                            articleCategory={category}
+                                            articleViewAmount={pageViews}
+                                            articleBriefText={text} />
                     </Item>
                 );
             }}>
