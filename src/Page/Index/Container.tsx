@@ -1,45 +1,35 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article} from '../../Class';
 import {Article as ArticleApi} from '../../Api';
 
-interface Props {}
-
-interface State
+function Index()
 {
-    articleList: Array<Article>,
-    loading: boolean,
-}
+    const [articleList, setArticleList] = useState([] as Article[]);
+    const [loading, setLoading] = useState(false);
 
-class Index extends PureComponent<Props, State>
-{
-    constructor(props: Props)
-    {
-        super(props);
-        this.state = {
-            articleList: [],
-            loading: true,
-        };
-    }
-
-    async componentDidMount()
+    useEffect(() =>
     {
         document.title = 'Soulike 的博客';
+    });
 
-        const articleList = await ArticleApi.getAllWithAbstract();
-        if (articleList)
-        {
-            this.setState({articleList, loading: false});
-        }
-    }
-
-    render()
+    useEffect(() =>
     {
-        const {articleList, loading} = this.state;
-        return (
-            <View articleList={articleList} loading={loading} />
-        );
-    }
+        setLoading(true);
+        ArticleApi.getAllWithAbstract()
+            .then(articleList =>
+            {
+                if (articleList)
+                {
+                    setArticleList(articleList);
+                }
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
+    return (
+        <View articleList={articleList} loading={loading} />
+    );
 }
 
-export default Index;
+export default React.memo(Index);
