@@ -1,36 +1,33 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article as ArticleClass, Category} from '../../Class';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import qs from 'querystring';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
 import {Article as ArticleApi, Category as CategoryApi} from '../../Api';
 
-interface Props extends RouteComponentProps {}
-
-interface State
+function Article()
 {
-    article: ArticleClass,
-    category: Category,
-    loading: boolean,
-}
+    const [article, setArticle] = useState(new ArticleClass(0, '', '', 0, '', '', 0, true));
+    const [category, setCategory] = useState(new Category(0, ''));
+    const [loading, setLoading] = useState(false);
 
-class Article extends PureComponent<Props, State>
-{
-    constructor(props: Props)
+    const history = useHistory();
+    const {search} = useLocation();
+
+    useEffect(() =>
     {
-        super(props);
-        this.state = {
-            article: new ArticleClass(0, '', '', 0, '', '', 0, true),
-            category: new Category(0, ''),
-            loading: true,
+        const getArticle = async (idNum: number) =>
+        {
+            return await ArticleApi.getById(idNum);
         };
-    }
 
-    async componentDidMount()
-    {
+        const getCategory = async (categoryId: number) =>
+        {
+            return await CategoryApi.getById(categoryId);
+        };
+
         // 兼容性代码，第一版博客设置查询字符串为 articleId，第二版修改为 id
-        const {location: {search}, history} = this.props;
         let {articleId, id} = qs.decode(search.slice(1));
 
         if (typeof id === 'undefined')
@@ -50,42 +47,38 @@ class Article extends PureComponent<Props, State>
         }
         else
         {
-            const article = await ArticleApi.getById(idNum);
-            if (article !== null)
-            {
-                document.title = `${article.title} - Soulike 的博客`;
-
-                this.setState({article});
-                const {category: categoryId} = article;
-                const category = await CategoryApi.getById(categoryId);
-                if (category !== null)
+            setLoading(true);
+            getArticle(idNum)
+                .then(article =>
                 {
-                    this.setState({category});
-                }
-                this.setState({
-                    loading: false,
-                });
-            }
+                    if (article !== null)
+                    {
+                        document.title = `${article.title} - Soulike 的博客`;
+                        setArticle(article);
+                        const {category: categoryId} = article;
+                        return getCategory(categoryId);
+                    }
+                })
+                .then(category =>
+                {
+                    if (category !== null && category !== undefined)
+                    {
+                        setCategory(category);
+                    }
+                })
+                .finally(() => setLoading(false));
         }
-    }
+    }, [history, search]);
 
-    render()
-    {
-        const {
-            article: {title, content, publicationTime, modificationTime},
-            category,
-            loading,
-        } = this.state;
-        return (
-            <View title={title}
-                  content={content}
-                  publicationTime={publicationTime}
-                  modificationTime={modificationTime}
-                  loading={loading}
-                  category={category} />
-        );
-    }
-
+    const {title, content, publicationTime, modificationTime} = article;
+    return (
+        <View title={title}
+              content={content}
+              publicationTime={publicationTime}
+              modificationTime={modificationTime}
+              loading={loading}
+              category={category} />
+    );
 }
 
-export default withRouter(Article);
+export default React.memo(Article);
