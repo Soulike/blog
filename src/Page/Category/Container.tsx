@@ -1,37 +1,31 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article} from '../../Class';
-import {Article as ArticleApi} from '../../Api';
 import qs from 'querystring';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG/PAGE';
+import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
+import {useHistory, useLocation} from 'react-router-dom';
+import {Article as ArticleApi} from '../../Api';
 
-interface Props extends RouteComponentProps {}
 
-interface State
+function Category()
 {
-    articleList: Array<Article>,
-    loading: boolean,
-}
+    const [articleList, setArticleList] = useState([] as Article[]);
+    const [loading, setLoading] = useState(false);
 
-class Category extends PureComponent<Props, State>
-{
-    constructor(props: Props)
-    {
-        super(props);
-        this.state = {
-            articleList: [],
-            loading: true,
-        };
-    }
+    const {search} = useLocation();
+    const history = useHistory();
 
-    async componentDidMount()
+    useEffect(() =>
     {
         document.title = 'Soulike 的博客';
+    }, []);
 
-        const {location, history} = this.props;
+    useEffect(() =>
+    {
+        const getArticleList = async (categoryId: number) =>
+            await ArticleApi.getByCategoryWithAbstract(categoryId);
 
-        const {id: idString} = qs.parse(location.search.slice(1));
+        const {id: idString} = qs.parse(search.slice(1));
         let id = NaN;
         if (typeof idString === 'string')
         {
@@ -44,28 +38,21 @@ class Category extends PureComponent<Props, State>
             return;
         }
 
-        const articleList = await ArticleApi.getByCategoryWithAbstract(id);
-        if (articleList)
-        {
-            this.setState({articleList, loading: false});
-        }
-    }
+        setLoading(true);
+        getArticleList(id)
+            .then(articleList =>
+            {
+                if (articleList)
+                {
+                    setArticleList(articleList);
+                }
+            })
+            .finally(() => setLoading(false));
+    }, [search, history]);
 
-    async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any)
-    {
-        if (this.props.location.search !== prevProps.location.search)
-        {
-            await this.componentDidMount();
-        }
-    }
-
-    render()
-    {
-        const {articleList, loading} = this.state;
-        return (
-            <View articleList={articleList} loading={loading} />
-        );
-    }
+    return (
+        <View articleList={articleList} loading={loading} />
+    );
 }
 
-export default withRouter(Category);
+export default React.memo(Category);
