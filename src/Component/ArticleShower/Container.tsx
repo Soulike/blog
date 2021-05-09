@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import View from './View';
 import {hljs} from '../../Singleton';
-import '../../ModuleConfig/MathJax';
+import useMaxJax from '../../Hook/useMaxJax';
+import {MATH_JAX} from '../../CONFIG';
 
 interface IProps
 {
@@ -25,12 +26,12 @@ function ArticleShower(props: IProps)
             hljs.highlightBlock(block);
         });
 
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub, wrapper, () =>
-        {
-            setWrapper(wrapper);
-            setLoading(false);
-        }]);
+        setWrapper(wrapper);
+
+        setLoading(false);
     }, [HTMLContent]);
+
+    useMaxJax(MATH_JAX, [HTMLContent]);
 
     return (
         <View HTMLContent={wrapper.innerHTML} loading={loading} />
