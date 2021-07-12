@@ -1,6 +1,8 @@
 .ArticleShower {
     @import "../../GlobalStyle/COLOR.css";
 
+    font-size: 1rem;
+
     /*覆盖 <article> 中 <h1> 尺寸*/
     h1 {
         font-size: 2em;
@@ -11,6 +13,7 @@
 
         border-radius: 4px;
         background-clip: border-box;
+        padding: 10px 20px;
     }
 
     img, table {

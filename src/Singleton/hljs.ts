@@ -1,6 +1,3 @@
-import 'highlight.js/scss/default.scss';
-import 'highlight.js/scss/vs2015.scss';
-
 import hljs from 'highlight.js/lib/core';
 
 hljs.registerLanguage('plaintext', require('highlight.js/lib/languages/plaintext'));
