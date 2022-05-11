@@ -9,7 +9,6 @@ import querystring from 'querystring';
 import {HomeOutlined, InfoOutlined, TagOutlined, TagsOutlined} from '@ant-design/icons';
 
 const {Sider, Footer, Content, Header} = Layout;
-const {Item, SubMenu} = Menu;
 
 interface Props
 {
@@ -22,6 +21,48 @@ interface Props
 function FrameView(props: Props)
 {
     const {children, hitokoto, year, categoryList} = props;
+    const menuItems = [
+        {
+            label: (
+                <div className={Style.item}>
+                    <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
+                        <HomeOutlined className={Style.icon} />首页
+                    </Link>
+                </div>), key: PAGE_ID_TO_ROUTE[PAGE_ID.INDEX],
+        },
+        {
+            label: (
+                <><TagsOutlined className={Style.icon} />
+                    分类
+                </>),
+            key: 'categorySubmenu',
+            children: categoryList.map(category =>
+            {
+                const {id, name} = category;
+                return {
+                    label: (
+                        <div>
+                            <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
+                                <TagOutlined className={Style.icon} />
+                                {name}
+                            </Link>
+                        </div>
+                    ),
+                    key: id,
+                };
+            }),
+        },
+        {
+            label: (
+                <div className={Style.item}>
+                    <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
+                        <InfoOutlined className={Style.icon} />关于
+                    </Link>
+                </div>
+            ),
+            key: PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT],
+        },
+    ];
 
     return (
         <Layout className={Style.Frame}>
@@ -29,38 +70,7 @@ function FrameView(props: Props)
             <Sider theme={'light'} className={Style.sidebar}>
                 <div className={Style.sidebarInner}>
                     <img src={avatar} className={Style.avatar} alt={'avatar'} />
-                    <Menu className={Style.menu} mode={'inline'} selectable={false}>
-                        <Item className={Style.item}>
-                            <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                <HomeOutlined className={Style.icon} />首页
-                            </Link>
-                        </Item>
-                        <SubMenu title={
-                            <span>
-                        <TagsOutlined className={Style.icon} />
-                        分类
-                    </span>
-                        } className={Style.item}>
-                            {
-                                categoryList.map(category =>
-                                {
-                                    const {id, name} = category;
-                                    return (
-                                        <Item key={id}>
-                                            <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                <TagOutlined className={Style.icon} />
-                                                {name}
-                                            </Link>
-                                        </Item>);
-                                })
-                            }
-                        </SubMenu>
-                        <Item className={Style.item}>
-                            <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                <InfoOutlined className={Style.icon} />关于
-                            </Link>
-                        </Item>
-                    </Menu>
+                    <Menu className={Style.menu} mode={'inline'} selectable={false} items={menuItems} />
                 </div>
             </Sider>
 
@@ -69,38 +79,11 @@ function FrameView(props: Props)
                 <Header className={Style.header}>
                     <div className={Style.headerInner}>
                         <img src={avatar} className={Style.avatar} alt={'avatar'} />
-                        <Menu className={Style.menu} mode={'horizontal'} selectable={false} theme={'dark'}>
-                            <Item className={Style.item}>
-                                <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]}>
-                                    <HomeOutlined className={Style.icon} />首页
-                                </Link>
-                            </Item>
-                            <SubMenu title={
-                                <span>
-                                    <TagsOutlined className={Style.icon} />
-                                    分类
-                                </span>
-                            } className={Style.item}>
-                                {
-                                    categoryList.map(category =>
-                                    {
-                                        const {id, name} = category;
-                                        return (
-                                            <Item key={id}>
-                                                <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
-                                                    <TagOutlined className={Style.icon} />
-                                                    {name}
-                                                </Link>
-                                            </Item>);
-                                    })
-                                }
-                            </SubMenu>
-                            <Item className={Style.item}>
-                                <Link to={PAGE_ID_TO_ROUTE[PAGE_ID.ABOUT]}>
-                                    <InfoOutlined className={Style.icon} />关于
-                                </Link>
-                            </Item>
-                        </Menu>
+                        <Menu className={Style.menu}
+                              mode={'horizontal'}
+                              selectable={false}
+                              theme={'dark'}
+                              items={menuItems} />
                     </div>
                 </Header>
                 <Content className={Style.content}>
