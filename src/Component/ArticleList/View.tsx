@@ -9,6 +9,7 @@ const {Item} = List;
 
 interface Props
 {
+    onPageNumberChange: (page: number) => void,
     articleList: Array<Article>,
     categoryMap: Map<number, Category>,
     loading: boolean,
@@ -16,7 +17,7 @@ interface Props
 
 function ArticleListView(props: Props)
 {
-    const {articleList, categoryMap, loading} = props;
+    const {onPageNumberChange, articleList, categoryMap, loading} = props;
     const ref = React.createRef<HTMLDivElement>();
     return (
         <div className={Style.ArticleList} ref={ref}>
@@ -26,8 +27,9 @@ function ArticleListView(props: Props)
                 pageSize: 10,
                 position: 'bottom',
                 hideOnSinglePage: true,
-                onChange: () =>
+                onChange: page =>
                 {
+                    onPageNumberChange(page);
                     if (ref.current !== null)
                     {
                         ref.current.scrollTo({

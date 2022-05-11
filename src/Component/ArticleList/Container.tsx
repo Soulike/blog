@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article, Category} from '../../Class';
 import {Category as CategoryApi} from '../../Api';
+import {useMaxJax} from '../../Hook';
 
 interface IProps
 {
@@ -13,8 +14,11 @@ function ArticleList(props: IProps)
 {
     const [categoryMap, setCategoryMap] = useState(new Map<number, Category>());
     const [selfLoading, setSelfLoading] = useState(false);
+    const [pageNumber, setPageNumber] = useState(1);
 
     const {articleList, loading} = props;
+
+    const onPageNumberChange = (pageNumber: number) => setPageNumber(pageNumber);
 
     useEffect(() =>
     {
@@ -41,8 +45,11 @@ function ArticleList(props: IProps)
             });
     }, []);
 
+    useMaxJax([pageNumber]);
+
     return (
-        <View articleList={articleList}
+        <View onPageNumberChange={onPageNumberChange}
+              articleList={articleList}
               categoryMap={categoryMap}
               loading={loading || selfLoading} />
     );
