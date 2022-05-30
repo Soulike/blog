@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.0dabd026.css",
-    "main.js": "/static/js/main.77ce2687.js",
+    "main.js": "/static/js/main.db07c1f7.js",
     "static/css/903.de975fb7.chunk.css": "/static/css/903.de975fb7.chunk.css",
     "static/js/903.266b292c.chunk.js": "/static/js/903.266b292c.chunk.js",
     "static/css/171.8b4085b0.chunk.css": "/static/css/171.8b4085b0.chunk.css",
@@ -18,13 +18,13 @@
     "static/js/680.482d2523.chunk.js": "/static/js/680.482d2523.chunk.js",
     "static/js/999.b17820bb.chunk.js": "/static/js/999.b17820bb.chunk.js",
     "static/js/106.b7de4b77.chunk.js": "/static/js/106.b7de4b77.chunk.js",
-    "static/js/278.cb190bea.chunk.js": "/static/js/278.cb190bea.chunk.js",
+    "static/js/278.355043eb.chunk.js": "/static/js/278.355043eb.chunk.js",
     "static/media/book_lover.svg": "/static/media/book_lover.e19669492913ce3c3c5e6d7ae5738609.svg",
     "static/media/avatar.png": "/static/media/avatar.460f23071c2ddccada47.png",
     "static/media/404_page_not_found_1.svg": "/static/media/404_page_not_found_1.9ff865f9f86d339f06dfd6a712f44f94.svg",
     "index.html": "/index.html",
     "main.0dabd026.css.map": "/static/css/main.0dabd026.css.map",
-    "main.77ce2687.js.map": "/static/js/main.77ce2687.js.map",
+    "main.db07c1f7.js.map": "/static/js/main.db07c1f7.js.map",
     "903.de975fb7.chunk.css.map": "/static/css/903.de975fb7.chunk.css.map",
     "903.266b292c.chunk.js.map": "/static/js/903.266b292c.chunk.js.map",
     "171.8b4085b0.chunk.css.map": "/static/css/171.8b4085b0.chunk.css.map",
@@ -41,10 +41,10 @@
     "680.482d2523.chunk.js.map": "/static/js/680.482d2523.chunk.js.map",
     "999.b17820bb.chunk.js.map": "/static/js/999.b17820bb.chunk.js.map",
     "106.b7de4b77.chunk.js.map": "/static/js/106.b7de4b77.chunk.js.map",
-    "278.cb190bea.chunk.js.map": "/static/js/278.cb190bea.chunk.js.map"
+    "278.355043eb.chunk.js.map": "/static/js/278.355043eb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0dabd026.css",
-    "static/js/main.77ce2687.js"
+    "static/js/main.db07c1f7.js"
   ]
 }
