@@ -12,5 +12,5 @@ export const PAGE_ID_TO_COMPONENT = {
     [PAGE_ID.ARTICLE]: Article,
     [PAGE_ID.ABOUT]: About,
     [PAGE_ID.CATEGORY]: Category,
-    [PAGE_ID.ARCHIVE]: undefined,
+    [PAGE_ID.ARCHIVE]: null,
 };
