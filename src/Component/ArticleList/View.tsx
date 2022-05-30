@@ -25,6 +25,7 @@ function ArticleListView(props: Props)
                 emptyText: (<Empty description={'暂无文章'} />),
             }} pagination={{
                 pageSize: 10,
+                showSizeChanger: false,
                 position: 'bottom',
                 hideOnSinglePage: true,
                 onChange: page =>
