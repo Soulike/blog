@@ -5,7 +5,6 @@ import avatar from '../../Static/avatar.png';
 import {Link} from 'react-router-dom';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
 import {Category} from '../../Class';
-import querystring from 'querystring';
 import {HomeOutlined, InfoOutlined, TagOutlined, TagsOutlined} from '@ant-design/icons';
 
 const {Sider, Footer, Content, Header} = Layout;
@@ -39,10 +38,12 @@ function FrameView(props: Props)
             children: categoryList.map(category =>
             {
                 const {id, name} = category;
+                const urlSearchParams = new URLSearchParams();
+                urlSearchParams.set('id', id.toString());
                 return {
                     label: (
                         <div>
-                            <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${querystring.encode({id})}`}>
+                            <Link to={`${PAGE_ID_TO_ROUTE[PAGE_ID.CATEGORY]}?${urlSearchParams.toString()}`}>
                                 <TagOutlined className={Style.icon} />
                                 {name}
                             </Link>

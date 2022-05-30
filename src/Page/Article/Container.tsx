@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import View from './View';
 import {Article as ArticleClass, Category} from '../../Class';
-import {useLocation, useNavigate} from 'react-router-dom';
-import qs from 'querystring';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
 import {Article as ArticleApi, Category as CategoryApi} from '../../Api';
 
@@ -13,7 +12,7 @@ function Article()
     const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
-    const {search} = useLocation();
+    const [searchParams] = useSearchParams();
 
     useEffect(() =>
     {
@@ -28,47 +27,44 @@ function Article()
         };
 
         // 兼容性代码，第一版博客设置查询字符串为 articleId，第二版修改为 id
-        let {articleId, id} = qs.decode(search.slice(1));
+        const id = searchParams.get('id') ?? searchParams.get('articleId');
 
-        if (typeof id === 'undefined')
-        {
-            id = articleId;
-        }
-
-        let idNum = NaN;
-        if (typeof id === 'string')
-        {
-            idNum = parseInt(id, 10);
-        }
-
-        if (Number.isNaN(idNum))
+        if (id === null)
         {
             navigate(PAGE_ID_TO_ROUTE[PAGE_ID.INDEX], {replace: true});
         }
         else
         {
-            setLoading(true);
-            getArticle(idNum)
-                .then(article =>
-                {
-                    if (article !== null)
+            const idNum = Number.parseInt(id);
+            if (Number.isNaN(idNum))
+            {
+                navigate(PAGE_ID_TO_ROUTE[PAGE_ID.INDEX], {replace: true});
+            }
+            else
+            {
+                setLoading(true);
+                getArticle(idNum)
+                    .then(article =>
                     {
-                        document.title = `${article.title} - Soulike 的博客`;
-                        setArticle(article);
-                        const {category: categoryId} = article;
-                        return getCategory(categoryId);
-                    }
-                })
-                .then(category =>
-                {
-                    if (category !== null && category !== undefined)
+                        if (article !== null)
+                        {
+                            document.title = `${article.title} - Soulike 的博客`;
+                            setArticle(article);
+                            const {category: categoryId} = article;
+                            return getCategory(categoryId);
+                        }
+                    })
+                    .then(category =>
                     {
-                        setCategory(category);
-                    }
-                })
-                .finally(() => setLoading(false));
+                        if (category !== null && category !== undefined)
+                        {
+                            setCategory(category);
+                        }
+                    })
+                    .finally(() => setLoading(false));
+            }
         }
-    }, [navigate, search]);
+    }, [navigate, searchParams]);
 
     const {title, content, publicationTime, modificationTime} = article;
     return (
