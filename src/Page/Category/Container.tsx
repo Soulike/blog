@@ -48,7 +48,7 @@ function Category()
                 }
             })
             .finally(() => setLoading(false));
-    }, [search, history]);
+    }, [search, navigate]);
 
     return (
         <View articleList={articleList} loading={loading} />

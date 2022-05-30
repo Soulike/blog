@@ -68,7 +68,7 @@ function Article()
                 })
                 .finally(() => setLoading(false));
         }
-    }, [history, search]);
+    }, [navigate, search]);
 
     const {title, content, publicationTime, modificationTime} = article;
     return (
