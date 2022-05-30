@@ -3,7 +3,7 @@ import View from './View';
 import {Article} from '../../Class';
 import qs from 'querystring';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {Article as ArticleApi} from '../../Api';
 
 
@@ -13,7 +13,7 @@ function Category()
     const [loading, setLoading] = useState(false);
 
     const {search} = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() =>
     {
@@ -34,7 +34,7 @@ function Category()
 
         if (Number.isNaN(id))
         {
-            history.replace(PAGE_ID_TO_ROUTE[PAGE_ID.INDEX]);
+            navigate(PAGE_ID_TO_ROUTE[PAGE_ID.INDEX], {replace: true});
             return;
         }
 
