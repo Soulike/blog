@@ -4,12 +4,7 @@ import axios from 'axios';
 import {Category} from '../../Class';
 import {Category as CategoryApi} from '../../Api';
 
-interface IProps
-{
-    children?: React.ReactNode,
-}
-
-function Frame(props: IProps)
+function Frame()
 {
     const [hitokoto, setHitokoto] = useState('这里应该有一句话');
     const [year, setYear] = useState(1970);
@@ -57,11 +52,8 @@ function Frame(props: IProps)
             });
     }, []);
 
-    const {children} = props;
     return (
-        <View hitokoto={hitokoto} year={year} categoryList={categoryList}>
-            {children}
-        </View>
+        <View hitokoto={hitokoto} year={year} categoryList={categoryList} />
     );
 }
 

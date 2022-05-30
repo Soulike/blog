@@ -1,6 +1,7 @@
 import React, {Suspense} from 'react';
 import Loading from './Component/Loading';
-import Router from './Router';
+
+const Router = React.lazy(() => import('./Router'));
 
 function App()
 {

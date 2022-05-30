@@ -2,7 +2,7 @@ import React from 'react';
 import Style from './Style.module.scss';
 import {Layout, Menu} from 'antd';
 import avatar from '../../Static/avatar.png';
-import {Link} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 import {PAGE_ID, PAGE_ID_TO_ROUTE} from '../../CONFIG';
 import {Category} from '../../Class';
 import {HomeOutlined, InfoOutlined, TagOutlined, TagsOutlined} from '@ant-design/icons';
@@ -11,7 +11,6 @@ const {Sider, Footer, Content, Header} = Layout;
 
 interface Props
 {
-    children?: React.ReactNode,
     hitokoto: string,
     year: number,
     categoryList: Array<Category>,
@@ -19,7 +18,7 @@ interface Props
 
 function FrameView(props: Props)
 {
-    const {children, hitokoto, year, categoryList} = props;
+    const {hitokoto, year, categoryList} = props;
     const menuItems = [
         {
             label: (
@@ -88,7 +87,7 @@ function FrameView(props: Props)
                     </div>
                 </Header>
                 <Content className={Style.content}>
-                    {children}
+                    <Outlet />
                 </Content>
                 <Footer className={Style.footer}>
                     <div className={Style.info}>{year} - Designed & Created by Soulike</div>
